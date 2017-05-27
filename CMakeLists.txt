@@ -1,7 +1,12 @@
-cmake_minimum_required(VERSION 3.6)
+cmake_minimum_required(VERSION 3.8)
 project(cpp_utility)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(SOURCE_FILES main.cpp base_tool/block_queue.h)
+set(SOURCE_FILES main.cpp)
+
 add_executable(cpp_utility ${SOURCE_FILES})
+
+find_package(Threads REQUIRED)
+
+target_link_libraries(cpp_utility ${CMAKE_THREAD_LIBS_INIT})

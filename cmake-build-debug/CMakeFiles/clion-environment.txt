@@ -1,0 +1,2 @@
+Options: 
+CMake: 3.8.1@/home/yfyzwr/yfy/install_pkg/cmake-3.8.1/bin/cmake

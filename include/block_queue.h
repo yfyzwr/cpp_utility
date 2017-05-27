@@ -2,8 +2,9 @@
 #define _BLOCK_QUEUE_H
 
 #include <iostream>
-
 #include <deque>
+#include <errno.h>
+#include <string.h>
 #include <pthread.h>
 #include <sys/time.h>
 
@@ -11,9 +12,9 @@
 #define ERROR_EMPTY     1
 #define ERROR_FULL      2
 #define ERROR_TIMEOUT   3
-#define ERROR_ARGUMENT  4       //
-#define ERROR_VALUE     5       //
-#define ERROR_OTHER     9999    //
+#define ERROR_ARGUMENT  4
+#define ERROR_VALUE     5
+#define ERROR_OTHER     9999
 
 using namespace std;
 

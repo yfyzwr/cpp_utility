@@ -1,9 +1,20 @@
 #include <iostream>
 #include <unistd.h>
 
-#include "base_tool/block_queue.h"
+#include "include/block_queue.h"
 
 using namespace std;
+
+class TTT{
+public:
+    int a;
+};
+
+template <typename T>
+int mycmp(T a, T b)
+{
+    return a > b;
+}
 
 void* customer(void* arg) {
 
@@ -27,7 +38,7 @@ void* producer(void* arg) {
 }
 
 int main(int argc, char** argv) {
-
+    /*
     pthread_t tid[2];
 
     block_queue<int>* bq = new block_queue<int>(500);
@@ -40,5 +51,16 @@ int main(int argc, char** argv) {
 
     cout << "the number of bq is : " << bq->size() << endl;
 
-    delete bq;
+    delete bq;*/
+
+    TTT a, b;
+    a.a = 1;
+    b.a = 2;
+
+    try {
+        mycmp(a, b);
+    }
+    catch(exception e){
+            cout << e.what() << endl;
+    }
 }

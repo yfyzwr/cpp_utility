@@ -1,0 +1,4 @@
+/home/yfyzwr/yfy/install_pkg/cmake-3.8.1/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/yfyzwr/yfy/git_dir/cpp_utility
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/yfyzwr/yfy/git_dir/cpp_utility/cmake-build-debug
