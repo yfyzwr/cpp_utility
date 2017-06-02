@@ -1,5 +1,5 @@
-#ifndef _BLOCK_QUEUE_H
-#define _BLOCK_QUEUE_H
+#ifndef BLOCK_QUEUE_H
+#define BLOCK_QUEUE_H
 
 #include <iostream>
 #include <deque>
@@ -238,15 +238,15 @@ public:
     }
 
 private:
-    deque<T>* m_deque;
-    int m_max_size;
-    int m_task_size;
-    int m_unfinished_tasks;
+    deque<T>* m_deque = NULL;
+    int m_max_size = 0;
+    int m_task_size = 0;
+    int m_unfinished_tasks = 0;
 
-    pthread_mutex_t* m_mutex;
-    pthread_cond_t* m_not_empty;
-    pthread_cond_t* m_not_full;
-    pthread_cond_t* m_all_tasks_done;
+    pthread_mutex_t* m_mutex = NULL;
+    pthread_cond_t* m_not_empty = NULL;
+    pthread_cond_t* m_not_full = NULL;
+    pthread_cond_t* m_all_tasks_done = NULL;
 };
 
-#endif //_BLOCK_QUEUE_H
+#endif //BLOCK_QUEUE_H

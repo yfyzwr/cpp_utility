@@ -5,16 +5,15 @@
 
 using namespace std;
 
-class TTT{
+class tmp{
 public:
-    int a;
+    class xxx{
+    public:
+        static int a;
+    };
 };
 
-template <typename T>
-int mycmp(T a, T b)
-{
-    return a > b;
-}
+int tmp::xxx::a = 9;
 
 void* customer(void* arg) {
 
@@ -38,8 +37,12 @@ void* producer(void* arg) {
 }
 
 int main(int argc, char** argv) {
-    /*
+
     pthread_t tid[2];
+
+    tmp::xxx::a = 9;
+
+    int a = -1/2;
 
     block_queue<int>* bq = new block_queue<int>(500);
 
@@ -51,16 +54,5 @@ int main(int argc, char** argv) {
 
     cout << "the number of bq is : " << bq->size() << endl;
 
-    delete bq;*/
-
-    TTT a, b;
-    a.a = 1;
-    b.a = 2;
-
-    try {
-        mycmp(a, b);
-    }
-    catch(exception e){
-            cout << e.what() << endl;
-    }
+    delete bq;
 }
