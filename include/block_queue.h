@@ -8,7 +8,7 @@
 #include <pthread.h>
 #include <sys/time.h>
 
-#define SUCCESS         0
+#define SUCCESS         10
 #define ERROR_EMPTY     1
 #define ERROR_FULL      2
 #define ERROR_TIMEOUT   3
