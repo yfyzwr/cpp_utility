@@ -2,7 +2,7 @@
 #define MIN_HEAP_H
 
 // 此结构非线程安全的
-// 自定义类型需要实现操作符重载
+// 自定义类型需要实现操作符重载: =/</==
 // 需要实现复制构造函数
 // 元素从 0 开始，对于位于ｉ的元素，其父节点是（ｉ-1）/2,左子节点是2*1+1,右子节点是2*ｉ+2.
 
@@ -121,7 +121,7 @@ public:
         return i;
     }
 
-    int update_element(unsigned int pos ,T& new_element){
+    int adjust_element(unsigned int pos ,T& new_element){
 
         if(pos >= this->m_cur_size) {
             return min_heap_errno::OUTRANGE;
@@ -132,10 +132,11 @@ public:
         }
 
         bool cmp_result = new_element < this->m_pHeap[pos];
+        this->m_pHeap[pos] = new_element;
         if(cmp_result){
             __heap_percolate_up(pos);
         }else{
-            __heap_percolate_up(pos);
+            __heap_percolate_down(pos);
         }
 
         return min_heap_errno::SUCCESS;
