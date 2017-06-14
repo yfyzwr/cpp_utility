@@ -1,1 +1,0 @@
-/usr/bin/c++   -std=c++11 -g   CMakeFiles/cpp_utility.dir/main.cpp.o  -o cpp_utility -lpthread 

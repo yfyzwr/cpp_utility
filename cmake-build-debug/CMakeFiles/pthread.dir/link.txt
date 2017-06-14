@@ -1,1 +1,0 @@
-/usr/bin/c++ -fPIC -g  -shared -Wl,-soname,libpthread.so -o libpthread.so CMakeFiles/pthread.dir/main.cpp.o 
