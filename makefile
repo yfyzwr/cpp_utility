@@ -2,7 +2,7 @@ CC = g++
 
 CFLAGS = -Wall -g -std=c++11
 
-INCLUDE = -I ./include -I /usr/include              #建议自定义目录放在前面
+INCLUDE = -I ./include -I /usr/local/include              #建议自定义目录放在前面
 
 LIBS =
 

@@ -3,6 +3,7 @@
 
 //#include "include/block_queue.h"
 #include "include/min_heap.h"
+#include "third-party/protobuf/Person.pb.h"
 
 using namespace std;
 
@@ -63,6 +64,20 @@ int main(int argc, char** argv) {
 
     int b;
     mHeap.pop_root(b);
+
+    tutorial::Person person;
+    person.set_name("yangfayou");
+    person.set_id(1234);
+    person.IsInitialized();
+
+    string temp;
+    person.SerializeToString(&temp);
+    cout<< temp << endl;
+
+    tutorial::Person haha;
+    haha.ParseFromString(temp);
+    cout<< haha.name() << "-----" << haha.id() << endl;
+
 
     return 0;
 }
