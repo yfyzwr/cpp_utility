@@ -9,4 +9,6 @@ add_executable(cpp_utility ${SOURCE_FILES})
 
 find_package(Threads REQUIRED)
 
+find_library(protobuf /user/local/lib)
+
 target_link_libraries(cpp_utility ${CMAKE_THREAD_LIBS_INIT})

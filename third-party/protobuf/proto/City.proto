@@ -1,0 +1,10 @@
+syntax="proto3";
+
+package tutorial;
+
+message City
+{
+    string name = 1;
+    int32 id = 2;
+    string postnumber = 3;
+}
