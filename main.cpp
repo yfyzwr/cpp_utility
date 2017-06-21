@@ -3,6 +3,7 @@
 
 //#include "include/block_queue.h"
 #include "include/min_heap.h"
+#include "include/common_tools.h"
 #include "third-party/protobuf/Person.pb.h"
 
 using namespace std;

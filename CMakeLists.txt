@@ -5,10 +5,15 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 set(SOURCE_FILES main.cpp third-party/protobuf/Person.pb.cc include/common_tools.h)
 
+include_directories(include)
+include_directories(third-party/protobuf)
+
+LINK_DIRECTORIES(/user/local/lib)
+
 add_executable(cpp_utility ${SOURCE_FILES})
 
 find_package(Threads REQUIRED)
 
-find_library(protobuf /user/local/lib)
+target_link_libraries(cpp_utility protobuf)
 
 target_link_libraries(cpp_utility ${CMAKE_THREAD_LIBS_INIT})

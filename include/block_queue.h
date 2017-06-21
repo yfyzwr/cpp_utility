@@ -6,7 +6,6 @@
 #include <errno.h>
 #include <string.h>
 #include <pthread.h>
-#include <sys/time.h>
 
 #define SUCCESS         10
 #define ERROR_EMPTY     1
