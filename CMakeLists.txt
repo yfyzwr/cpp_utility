@@ -3,7 +3,7 @@ project(cpp_utility)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(SOURCE_FILES main.cpp third-party/protobuf/Person.pb.cc include/common_tools.h)
+set(SOURCE_FILES main.cpp third-party/protobuf/Person.pb.cc include/common_tools.h TcpSocket.cpp TcpSocket.h ProcessShareLock.h fork.cpp)
 
 include_directories(include)
 include_directories(third-party/protobuf)

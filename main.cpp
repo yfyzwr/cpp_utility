@@ -79,6 +79,5 @@ int main(int argc, char** argv) {
     haha.ParseFromString(temp);
     cout<< haha.name() << "-----" << haha.id() << endl;
 
-
     return 0;
 }
