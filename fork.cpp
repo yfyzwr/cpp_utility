@@ -11,6 +11,7 @@
 #include <sys/shm.h>
 
 #include "ProcessShareLock.h"
+#include "TcpSocket.h"
 
 int main(int argc, char** argv)
 {
@@ -20,33 +21,16 @@ int main(int argc, char** argv)
 	bool isStop = false;
 	pid_t tempPid = 0;
 
+
     ProcessShareLock<int> shlock;
     shlock.init();
     shlock.local_addr_map();
     shlock.set_lock_share();
 
-	/*int shmid = 0;
-	prcinfo* shmaddr = NULL;
+    TcpSocket tcpsock;
+    tcpsock.server_init(22222, 100);
+    tcpsock.setnonblocking(tcpsock.get_listen_socket(), true);
 
-	shmid = shmget(IPC_PRIVATE, sizeof(prcinfo), IPC_CREAT|0600);
-	if ( shmid < 0 )
-	{
-      		perror("get shm  ipc_id error") ;
-       		return -1 ;
-	}
-
-	shmaddr = (prcinfo *) shmat(shmid, NULL, 0 ) ;
-        if ( (int)shmaddr == -1 )
-        {
-		perror("shmat addr error");
-		return -1;
-	}
-
-	pthread_mutexattr_t attr;
-	pthread_mutexattr_init(&attr);
-	pthread_mutexattr_setpshared(&attr,PTHREAD_PROCESS_SHARED);
-	pthread_mutex_init(&(shmaddr->f_lock), &attr);
-	*/
 	while(!isStop)
 	{
 		if(iProcNum > 0)
@@ -55,31 +39,55 @@ int main(int argc, char** argv)
 			if(tempPid > 0)
 			{
 				aPid[--iProcNum] = tempPid;
-				printf("this is parent process, create child process[%d]\n", aPid[iProcNum]);
+				//printf("this is parent process, create child process[%d]\n", aPid[iProcNum]);
 
 				shlock.lock();
 				shlock.unlock();
 			}
 			else if(tempPid == 0)
 			{
-				//printf("fork pid[%d] --- iProcNum[%d]\n", getpid(), iProcNum);
-
-				/*struct sigaction hup_act;
-    				memset(&hup_act, 0, sizeof(hup_act));
-    				hup_act.sa_handler = sighup_hander;
-    				sigemptyset(&hup_act.sa_mask);
-				//hup_act.sa_flags = SA_SIGINFO;
-				//hup_act.sa_sigaction = sighup_hander_else;:
-    				//sigaction(SIGHUP, &hup_act_else, 0);
-				sigaction(SIGHUP, &hup_act, 0);*/
-
-				shlock.local_addr_map();
-
 				sleep(3);
+                bool isHaveLock = false;
 
+                tcpsock.epoll_init();
 
-                shlock.lock();
-                shlock.unlock();
+                shlock.local_addr_map();
+
+                while(1)
+                {
+                    int iRet = shlock.try_lock();
+                    if (iRet == ProcessShareLock::InnerErrorCode::ELOCKBUSY) {
+                        bool bRet = tcpsock.epoll_del_sock(tcpsock.get_listen_socket());
+                        if (bRet == false) {
+                            printf("epoll_del_sock error!\n");
+                        }
+
+                        isHaveLock = false;
+                    } else if (iRet == ProcessShareLock::InnerErrorCode::SUCESS) {
+                        tcpsock.epoll_add_sock(tcpsock.get_listen_socket());
+                        isHaveLock = true;
+                    } else {
+                        exit(0);
+                    }
+
+                    int EventNum = tcpsock.epoll_wait_get(-1);
+                    if(isHaveLock)
+                    {
+                        for(int i = 0; i <EventNum; ++i)
+                        {
+                            int iClinetSockFd = 0;
+                            tcpsock.accept(iClinetSockFd);
+                            tcpsock.setnonblocking(iClinetSockFd, true);
+                            tcpsock.epoll_add_sock(iClinetSockFd);
+                        }
+                    }
+                    else
+                    {
+
+                    }
+
+                    shlock.unlock();
+                }
 
 				//printf("child process pid[%d] end !\n", getpid());
 

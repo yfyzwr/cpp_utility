@@ -12,6 +12,8 @@
 
 using namespace std;
 
+// 打印显示内容并不需要；函数调用未作错误处理
+
 template<typename T>
 class ProcessShareLock{
 
@@ -63,7 +65,10 @@ public:
             return InnerErrorCode::ETRYLOCKERROR;
         }
 
+        cout << "pid[" << getpid() << "]lock" << endl;
         (*this->m_pData)++;
+        cout << "data [" << *(this->m_pData) << "]" << endl;
+
         return InnerErrorCode::SUCESS;
     }
 
